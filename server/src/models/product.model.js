@@ -1,26 +1,27 @@
 const mongoose = require("mongoose")
 
 const productSchema = new mongoose.Schema({
-  productImage: {
+  picture: {
     type: String,
     default: "https://sudbury.legendboats.com/resource/defaultProductImage",
   },
-  productName: {
+  name: {
     type: String,
     required: true,
   },
-  productDescription: {
+  description: {
     type: String,
   },
-  productGender: {
-    type: String,
-    required: true,
-  },
-  productCategory: {
+  gender: {
     type: String,
     required: true,
   },
-  productPrice: {
+  category: {
+    type: String,
+    required: true,
+    enum: ["makeup", "skincare", "haircare"],
+  },
+  price: {
     type: Number,
     required: true,
   },
