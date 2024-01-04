@@ -1,12 +1,18 @@
 const express = require("express")
-const connection = require("../utils/connection")
 const app = express()
+const cors = require("cors")
+const connection = require("./utils/connection")
+const { createUser } = require("./controllers/user.controller")
+
 require("dotenv").config()
 
 app.use(express.json())
-app.get("/", (req, res) => {
-  res.send({ message: "App is running" })
+
+app.get("/api/", (req, res) => {
+  res.status(200).send({ message: "OK" })
 })
+
+app.post("/api/register", createUser)
 
 app.listen(process.env.PORT, async () => {
   try {
@@ -14,6 +20,6 @@ app.listen(process.env.PORT, async () => {
     console.log("DB connection established")
     console.log("listening on port " + process.env.PORT)
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 })
