@@ -12,7 +12,19 @@ const createProduct = async (req, res) => {
 
 const getAllProducts = async (req, res) => {
   try {
-    const products = await Product.find()
+    const { sort, order, category, gender } = req.query
+    let q = {}
+    let sortOrder = {}
+    if (gender) {
+      q.gender = gender
+    }
+    if (category) q.category = category
+    if (order) {
+      sortOrder[sort] = order === "asc" ? 1 : -1
+    }
+    const products = sort
+      ? await Product.find(q).sort(sortOrder).limit(10)
+      : await Product.find(q).limit(10)
     if (products.length) {
       res
         .status(200)

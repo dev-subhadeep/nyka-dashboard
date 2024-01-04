@@ -9,11 +9,13 @@ import Footer from "./components/Footer"
 import LoginPage from "./pages/LoginPage"
 import { Route, Routes } from "react-router-dom"
 import ComponentChecker from "./pages/ComponentChecker"
+import Sidebar from "./components/Sidebar"
 
 function App() {
   return (
-    <div className="flex flex-col min-h-screen justify-between items-center">
+    <div className="flex flex-row min-h-screen items-start bg-background">
       <Navbar />
+      <Sidebar />
       <Routes>
         <Route path="/" element={<DashboardPage />} />
         <Route path="/login" element={<LoginPage />} />
@@ -22,7 +24,6 @@ function App() {
         <Route path="/analytics" element={<AnalyticsPage />} />
         <Route path="/check" element={<ComponentChecker />} />
       </Routes>
-      <Footer />
     </div>
   )
 }

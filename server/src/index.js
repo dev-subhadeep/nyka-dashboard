@@ -8,7 +8,6 @@ const productRouter = require("./routes/product.routes")
 require("dotenv").config()
 
 app.use(cors())
-
 app.use(express.json())
 
 app.get("/api/", (req, res) => {
