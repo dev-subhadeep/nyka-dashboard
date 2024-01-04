@@ -3,6 +3,7 @@ const app = express()
 const cors = require("cors")
 const connection = require("./utils/connection")
 const { createUser } = require("./controllers/user.controller")
+const productRouter = require("./routes/product.routes")
 
 require("dotenv").config()
 
@@ -13,6 +14,8 @@ app.get("/api/", (req, res) => {
 })
 
 app.post("/api/register", createUser)
+
+app.use("/api/products", productRouter)
 
 app.listen(process.env.PORT, async () => {
   try {
