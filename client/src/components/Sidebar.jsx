@@ -3,8 +3,17 @@ import { NavLink } from "react-router-dom"
 import DashboardIcon from "../assets/dashboard.svg"
 import AnalyticsIcon from "../assets/analytics.svg"
 import LogoutIcon from "../assets/logout.svg"
+import Cookies from "universal-cookie"
+import { useNavigate } from "react-router-dom"
+
+const cookies = new Cookies()
 
 const Sidebar = () => {
+  const navigate = useNavigate()
+  const handleLogout = () => {
+    cookies.remove("token")
+    navigate("/login")
+  }
   return (
     <div className="w-[230px] mr-12 bg-white min-h-screen">
       <h1 className="text-2xl text-center text-[#013CC6] my-[63px]">
@@ -12,7 +21,7 @@ const Sidebar = () => {
       </h1>
       <div className="px-[23px] ml-4 flex flex-col gap-[41px]">
         <div>
-          <NavLink className="flex flex-row gap-4">
+          <NavLink to={"/dashboard"} className="flex flex-row gap-4">
             <span>
               <img src={DashboardIcon} alt="" />
             </span>
@@ -20,7 +29,7 @@ const Sidebar = () => {
           </NavLink>
         </div>
         <div>
-          <NavLink className="flex flex-row gap-4">
+          <NavLink to={"/analytics"} className="flex flex-row gap-4">
             <span>
               <img src={AnalyticsIcon} alt="" />
             </span>
@@ -28,7 +37,7 @@ const Sidebar = () => {
           </NavLink>
         </div>
         <div>
-          <button className="flex flex-row gap-4">
+          <button onClick={handleLogout} className="flex flex-row gap-4">
             <span>
               <img src={LogoutIcon} alt="" />
             </span>

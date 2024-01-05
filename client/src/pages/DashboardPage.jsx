@@ -15,12 +15,22 @@ import ProductForm from "../components/ProductForm"
 import { useSelector, useDispatch } from "react-redux"
 import { setAddMode, toggleVisibility } from "../redux/features/modalSlice"
 import { baseurl } from "../lib/constants"
+import checkAuth from "../lib/checkAuth"
+import { useNavigate } from "react-router-dom"
 
 const DashboardPage = () => {
   const [products, setProducts] = useState([])
   const params = useSelector((store) => store.filters)
   const { visibility, mode } = useSelector((store) => store.modal)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+  useEffect(() => {
+    const isAuthenticated = checkAuth()
+
+    if (!isAuthenticated) {
+      navigate("/login")
+    }
+  })
 
   useEffect(() => {
     console.log("changed")

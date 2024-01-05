@@ -12,6 +12,7 @@ import ComponentChecker from "./pages/ComponentChecker"
 import Sidebar from "./components/Sidebar"
 import { Provider } from "react-redux"
 import { store } from "./redux/store"
+import PrivateRoutes from "./components/PrivateRoutes"
 
 function App() {
   return (
@@ -21,10 +22,10 @@ function App() {
         <Sidebar />
         <Routes>
           <Route path="/" element={<DashboardPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/analytics" element={<AnalyticsPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="/check" element={<ComponentChecker />} />
         </Routes>
       </div>
