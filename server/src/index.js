@@ -10,7 +10,7 @@ require("dotenv").config()
 app.use(cors())
 app.use(express.json())
 
-app.get("/api/", (req, res) => {
+app.get("/", (req, res) => {
   res.status(200).send({ message: "OK" })
 })
 
