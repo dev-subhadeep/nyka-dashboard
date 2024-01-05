@@ -1,1 +1,2 @@
-export const baseurl = "http://localhost:8080/api"
+export const baseurl =
+  import.meta.env.VITE_BASE_URL || "https://defiant-cod-bracelet.cyclic.app/api"
