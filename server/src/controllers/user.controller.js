@@ -1,5 +1,6 @@
 const User = require("../models/user.model")
 const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken")
 const { saltRounds } = require("../lib/constants")
 
 const createUser = async (req, res) => {
@@ -21,6 +22,29 @@ const createUser = async (req, res) => {
   }
 }
 
+const getUser = async (req, res) => {
+  try {
+    const { email, password } = req.body
+
+    const user = await User.findOne({ email: email })
+    if (user) {
+      bcrypt.compare(password, user.password, function (err, result) {
+        if (err) {
+          res.status(404).send({ error: err })
+        } else if (result) {
+          const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET)
+          res.status(200).send({ message: "logged in", token })
+        } else {
+          res.status(500).send({ error: "Wrong credentials" })
+        }
+      })
+    }
+  } catch (error) {
+    res.status(500).send({ error: `${error.message}` })
+  }
+}
+
 module.exports = {
   createUser,
+  getUser,
 }

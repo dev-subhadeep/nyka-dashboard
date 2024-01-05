@@ -2,7 +2,7 @@ const express = require("express")
 const app = express()
 const cors = require("cors")
 const connection = require("./utils/connection")
-const { createUser } = require("./controllers/user.controller")
+const { createUser, getUser } = require("./controllers/user.controller")
 const productRouter = require("./routes/product.routes")
 
 require("dotenv").config()
@@ -15,6 +15,7 @@ app.get("/api/", (req, res) => {
 })
 
 app.post("/api/register", createUser)
+app.post("/api/login", getUser)
 
 app.use("/api/products", productRouter)
 
