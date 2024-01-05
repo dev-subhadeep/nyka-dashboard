@@ -1,4 +1,3 @@
-const mongoose = require("mongoose")
 const User = require("../models/user.model")
 const bcrypt = require("bcrypt")
 const { saltRounds } = require("../lib/constants")

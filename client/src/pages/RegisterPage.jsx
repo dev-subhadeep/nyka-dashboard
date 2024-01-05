@@ -1,10 +1,31 @@
-import React from "react"
+import React, { useState } from "react"
+import axios from "axios"
+import { baseurl } from "../lib/constants"
+
+const initialState = {
+  name: "",
+  email: "",
+  password: "",
+}
 
 const RegisterPage = () => {
+  const [data, setData] = useState(initialState)
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    // console.log(data)
+    axios({
+      url: `${baseurl}/register`,
+      method: "POST",
+      data,
+    }).then((response) => {
+      setData(initialState)
+      console.log(response)
+    })
+  }
   return (
     <div className="shadow-lg rounded-md mx-auto w-96 p-10">
       <h1 className="text-3xl font-bold text-center">Register</h1>
-      <form className="flex flex-col gap-2">
+      <form className="flex flex-col gap-2" onClick={handleSubmit}>
         <div>
           <p>
             <label htmlFor="name">Name</label>
@@ -13,6 +34,9 @@ const RegisterPage = () => {
             className="border border-slate-300 rounded-md p-2 px-2 w-full"
             type="text"
             name="name"
+            onChange={(e) =>
+              setData({ ...data, [e.target.name]: e.target.value })
+            }
             placeholder="e.g. John Doe"
           />
         </div>
@@ -34,6 +58,9 @@ const RegisterPage = () => {
             className="border border-slate-300 rounded-md p-2 px-2 w-full"
             type="email"
             name="email"
+            onChange={(e) =>
+              setData({ ...data, [e.target.name]: e.target.value })
+            }
             placeholder="e.g. johndoe@gmail.com"
           />
         </div>
@@ -45,6 +72,9 @@ const RegisterPage = () => {
             className="border border-slate-300 rounded-md p-2 px-2 w-full"
             type="password"
             name="password"
+            onChange={(e) =>
+              setData({ ...data, [e.target.name]: e.target.value })
+            }
             placeholder="*********"
           />
         </div>
