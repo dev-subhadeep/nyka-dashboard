@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import axios from "axios"
 import { baseurl } from "../lib/constants"
+import { NavLink, useNavigate } from "react-router-dom"
 
 const initialState = {
   name: "",
@@ -9,6 +10,7 @@ const initialState = {
 }
 
 const RegisterPage = () => {
+  const navigate = useNavigate()
   const [data, setData] = useState(initialState)
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -20,12 +22,13 @@ const RegisterPage = () => {
     }).then((response) => {
       setData(initialState)
       console.log(response)
+      navigate("/login")
     })
   }
   return (
     <div className="shadow-lg rounded-md mx-auto w-96 p-10">
       <h1 className="text-3xl font-bold text-center">Register</h1>
-      <form className="flex flex-col gap-2" onClick={handleSubmit}>
+      <form className="flex flex-col gap-2" onSubmit={(e) => handleSubmit(e)}>
         <div>
           <p>
             <label htmlFor="name">Name</label>
@@ -86,7 +89,9 @@ const RegisterPage = () => {
         <div>
           <p>
             Already have an account?{" "}
-            <button className="underline">Login</button>
+            <NavLink className="underline" to="/login">
+              Login
+            </NavLink>
           </p>
         </div>
       </form>

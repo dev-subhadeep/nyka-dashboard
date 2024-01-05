@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import axios from "axios"
 import { baseurl } from "../lib/constants"
 import Cookies from "universal-cookie"
-import { useNavigate } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 
 const cookies = new Cookies()
 const LoginPage = () => {
@@ -62,7 +62,9 @@ const LoginPage = () => {
         <div>
           <p>
             Don't have an account?{" "}
-            <button className="underline">Regiser</button>
+            <NavLink className="underline" to="/register">
+              Regiser
+            </NavLink>
           </p>
         </div>
       </form>

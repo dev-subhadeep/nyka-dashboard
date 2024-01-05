@@ -24,13 +24,13 @@ const DashboardPage = () => {
   const { visibility, mode } = useSelector((store) => store.modal)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  useEffect(() => {
-    const isAuthenticated = checkAuth()
+  // useEffect(() => {
+  //   const isAuthenticated = checkAuth()
 
-    if (!isAuthenticated) {
-      navigate("/login")
-    }
-  })
+  //   if (!isAuthenticated) {
+  //     navigate("/login")
+  //   }
+  // })
 
   useEffect(() => {
     console.log("changed")
