@@ -6,7 +6,11 @@ const Searchbox = () => {
       <i>
         <img src={SearchIcon} alt="search" />
       </i>
-      <input type="text" placeholder="Search" className="ml-4" />
+      <input
+        type="text"
+        placeholder="Search"
+        className="ml-4 focus:ring-input focus:border-input w-full"
+      />
     </div>
   )
 }

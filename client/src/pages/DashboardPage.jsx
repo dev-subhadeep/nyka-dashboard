@@ -14,8 +14,7 @@ import Sort from "../components/Sort"
 import ProductForm from "../components/ProductForm"
 import { useSelector, useDispatch } from "react-redux"
 import { setAddMode, toggleVisibility } from "../redux/features/modalSlice"
-
-const baseURL = "http://localhost:8080/api/products/"
+import { baseurl } from "../lib/constants"
 
 const DashboardPage = () => {
   const [products, setProducts] = useState([])
@@ -26,8 +25,14 @@ const DashboardPage = () => {
   useEffect(() => {
     console.log("changed")
     axios({
-      url: baseURL,
-      params: params,
+      url: `${baseurl}/products`,
+      method: "GET",
+      params: {
+        category: params.category,
+        gender: params.gender,
+        sort: "price",
+        order: params.order,
+      },
     })
       .then((res) => setProducts(res.data.products))
       .catch((error) => console.log(error))
