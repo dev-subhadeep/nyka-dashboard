@@ -14,6 +14,9 @@ const getAllProducts = async (req, res) => {
   try {
     const { sort, order, category, gender } = req.query
     let q = {}
+    // if (search) {
+    //   q.name = { $regex: title, $options: "i" }
+    // }
     let sortOrder = {}
     if (gender) {
       q.gender = gender
