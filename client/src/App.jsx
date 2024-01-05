@@ -10,21 +10,25 @@ import LoginPage from "./pages/LoginPage"
 import { Route, Routes } from "react-router-dom"
 import ComponentChecker from "./pages/ComponentChecker"
 import Sidebar from "./components/Sidebar"
+import { Provider } from "react-redux"
+import { store } from "./redux/store"
 
 function App() {
   return (
-    <div className="flex flex-row min-h-screen items-start bg-background">
-      <Navbar />
-      <Sidebar />
-      <Routes>
-        <Route path="/" element={<DashboardPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/analytics" element={<AnalyticsPage />} />
-        <Route path="/check" element={<ComponentChecker />} />
-      </Routes>
-    </div>
+    <Provider store={store}>
+      <div className="flex flex-row min-h-screen items-start bg-background">
+        <Navbar />
+        <Sidebar />
+        <Routes>
+          <Route path="/" element={<DashboardPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/analytics" element={<AnalyticsPage />} />
+          <Route path="/check" element={<ComponentChecker />} />
+        </Routes>
+      </div>
+    </Provider>
   )
 }
 

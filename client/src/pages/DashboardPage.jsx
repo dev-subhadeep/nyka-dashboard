@@ -11,19 +11,27 @@ import NotificationIcon from "../assets/notification-bing.svg"
 import ProfilePicture from "../assets/profilepic.jpg"
 import Selection from "../components/Selection"
 import Sort from "../components/Sort"
+import ProductForm from "../components/ProductForm"
+import { useSelector, useDispatch } from "react-redux"
+import { setAddMode, toggleVisibility } from "../redux/features/modalSlice"
 
 const baseURL = "http://localhost:8080/api/products/"
 
 const DashboardPage = () => {
   const [products, setProducts] = useState([])
-  const [isOpen, setIsOpen] = useState(false)
+  const params = useSelector((store) => store.filters)
+  const { visibility, mode } = useSelector((store) => store.modal)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    axios
-      .get(baseURL)
+    console.log("changed")
+    axios({
+      url: baseURL,
+      params: params,
+    })
       .then((res) => setProducts(res.data.products))
       .catch((error) => console.log(error))
-  }, [])
+  }, [params])
 
   return (
     <div className="mx-auto mt-[50px]">
@@ -47,23 +55,27 @@ const DashboardPage = () => {
         </div>
       </div>
       <div className="flex flex-row my-4 justify-between">
-        <Selection filterParam="gender" options={["Male", "Female"]} />
+        <Selection filterParam="gender" options={["male", "female"]} />
         <Selection
           filterParam="category"
-          options={["Makeup", "Skincare", "Haircare"]}
+          options={["makeup", "skincare", "haircare"]}
         />
         <Sort />
         <button
           className="bg-cta text-white uppercase py-4 px-12 h-[58px] rounded-md font-bold self-end"
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => {
+            dispatch(setAddMode())
+            dispatch(toggleVisibility())
+          }}
         >
           Add Product
         </button>
       </div>
       <ProductTable products={products} />
-      {isOpen && (
+      {visibility && (
         <Modal>
-          <AddProduct />
+          {mode === "add" && <AddProduct />}
+          {mode === "edit" && <ProductForm mode="edit" />}
         </Modal>
       )}
       <div className="flex flex-row items-center justify-end p-4">

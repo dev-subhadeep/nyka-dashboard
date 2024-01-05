@@ -1,8 +1,16 @@
 import React from "react"
 import ArrowRightIcon from "../assets/arrow-right.svg"
 import { titleCase } from "../lib/convertCase"
+import TrashIcon from "../assets/trash.svg"
+import EditIcon from "../assets/edit.svg"
+import MoreIcon from "../assets/more.svg"
+import axios from "axios"
+import { baseurl } from "../lib/constants"
+import { useDispatch, useSelector } from "react-redux"
+import { setEditMode, toggleVisibility } from "../redux/features/modalSlice"
 
 const ProductTable = ({ products }) => {
+  const dispatch = useDispatch()
   return (
     <div className="bg-white rounded-xl p-8">
       <div className="flex flex-row justify-between pb-8">
@@ -53,7 +61,26 @@ const ProductTable = ({ products }) => {
                 <td className="text-left p-4 border-t">
                   <div>{product.description}</div>
                 </td>
-                <td className="text-left p-4 border-t">{product.actions}</td>
+                <td className="text-left p-4 border-t flex flex-row gap-4">
+                  <button
+                    onClick={() => {
+                      dispatch(setEditMode())
+                      dispatch(toggleVisibility())
+                    }}
+                  >
+                    <img src={EditIcon} alt="Edit" />
+                  </button>
+                  <button
+                    onClick={() => {
+                      axios.delete(`${baseurl}/products/${product._id}`)
+                    }}
+                  >
+                    <img src={TrashIcon} alt="Delete" />
+                  </button>
+                  <button>
+                    <img src={MoreIcon} alt="More" />
+                  </button>
+                </td>
               </tr>
             )
           })}

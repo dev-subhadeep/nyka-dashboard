@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import axios from "axios"
 import { baseurl } from "../lib/constants.js"
-import { useDispatch } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { toggleVisibility } from "../redux/features/modalSlice.js"
 
 const initialState = {
@@ -12,11 +12,11 @@ const initialState = {
   price: "",
 }
 
-const AddProduct = () => {
+const ProductForm = ({ mode, id }) => {
   const [product, setProduct] = useState(initialState)
   const [productImg, setProductImg] = useState(null)
+  const { visibility } = useSelector((store) => store.modal)
   const dispatch = useDispatch()
-
   const handleSubmit = (e) => {
     e.preventDefault()
     const data = {
@@ -41,7 +41,9 @@ const AddProduct = () => {
   }
   return (
     <div className="shadow-lg rounded-md mx-auto w-96 p-10 bg-white">
-      <h1 className="text-3xl font-bold text-center my-4">Add Product</h1>
+      <h1 className="text-3xl font-bold text-center my-4">
+        {mode === "add" ? "Add Product" : "Edit Product"}
+      </h1>
       <form
         className="flex flex-col gap-2"
         encType="multipart/form-data"
@@ -152,7 +154,9 @@ const AddProduct = () => {
       <div className="mt-4">
         <button
           className="w-full border p-2 rounded-md"
-          onClick={() => dispatch(toggleVisibility())}
+          onClick={() => {
+            dispatch(toggleVisibility())
+          }}
         >
           Done
         </button>
@@ -161,4 +165,4 @@ const AddProduct = () => {
   )
 }
 
-export default AddProduct
+export default ProductForm
